@@ -15,6 +15,9 @@ RUN gclient config --unmanaged https://pdfium.googlesource.com/pdfium.git
 RUN gclient sync
 
 WORKDIR /repo/pdfium
+
+RUN echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | debconf-set-selections
+RUN sudo DEBIAN_FRONTEND=noninteractive apt-get install tzdata
 RUN echo n | ./build/install-build-deps.sh
 
 RUN gn gen out/Debug
